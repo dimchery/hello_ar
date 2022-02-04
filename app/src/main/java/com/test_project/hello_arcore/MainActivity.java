@@ -1,12 +1,15 @@
 package com.test_project.hello_arcore;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,7 @@ import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Sceneform;
+import com.google.ar.sceneform.animation.ModelAnimation;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.EngineInstance;
@@ -49,16 +53,38 @@ import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity implements
         FragmentOnAttachListener,
-        BaseArFragment.OnSessionConfigurationListener {
+        BaseArFragment.OnSessionConfigurationListener,
+        View.OnClickListener {
 
     private final List<CompletableFuture<Void>> futures = new ArrayList<>();
     private ArFragment arFragment;
-    private boolean matrixDetected = false;
-    private boolean rabbitDetected = false;
+
+    private boolean objectDetected = false;
     private AugmentedImageDatabase database;
-    private Renderable plainVideoModel;
+    private Renderable objectModel;
     private Material plainVideoMaterial;
     private MediaPlayer mediaPlayer;
+
+
+//    AnchorNode anchorNode;
+    TransformableNode modelNode;
+
+    private Button playButton;
+    private Button stopButton;
+
+    private ObjectAnimator modelAnimator;
+
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +103,36 @@ public class MainActivity extends AppCompatActivity implements
         if(Sceneform.isSupported(this)) {
             // .glb models can be loaded at runtime when needed or when app starts
             // This method loads ModelRenderable when app starts
-            loadMatrixModel();
-            loadMatrixMaterial();
+            loadModel();
+//            loadMatrixMaterial();
         }
 
+        playButton = (Button)findViewById(R.id.play_button);
+        playButton.setOnClickListener(this);
+        playButton.setEnabled(false);
+        playButton.setVisibility(View.INVISIBLE);
+
+        stopButton = (Button)findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(this);
+        stopButton.setEnabled(false);
+        stopButton.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.play_button:
+                modelAnimator.start();
+                modelAnimator.setRepeatCount(0);
+                Toast.makeText(this, "modelAnimator.start();", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.stop_button:
+                modelAnimator.cancel();
+                Toast.makeText(this, "modelAnimator.cancel();", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -102,12 +154,14 @@ public class MainActivity extends AppCompatActivity implements
         config.setFocusMode(Config.FocusMode.AUTO);
 
         database = new AugmentedImageDatabase(session);
+        //добавляем изображения в базу
+        Bitmap testImage = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
 
-        Bitmap matrixImage = BitmapFactory.decodeResource(getResources(), R.drawable.matrix);
-        Bitmap rabbitImage = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
+
+
+
         // Every image has to have its own unique String identifier
-        database.addImage("matrix", matrixImage);
-        database.addImage("rabbit", rabbitImage);
+        database.addImage("rabbit", testImage);
 
         config.setAugmentedImageDatabase(database);
 
@@ -133,70 +187,11 @@ public class MainActivity extends AppCompatActivity implements
                 future.cancel(true);
         });
 
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-        }
-    }
-
-    private void loadMatrixModel() {
-        futures.add(ModelRenderable.builder()
-                .setSource(this, Uri.parse("models/Video.glb"))
-                .setIsFilamentGltf(true)
-                .build()
-                .thenAccept(model -> {
-                    //removing shadows for this Renderable
-                    model.setShadowCaster(false);
-                    model.setShadowReceiver(true);
-                    plainVideoModel = model;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG).show();
-                            return null;
-                        }));
-    }
-
-    private void loadMatrixMaterial() {
-        Engine filamentEngine = EngineInstance.getEngine().getFilamentEngine();
-
-        MaterialBuilder.init();
-        MaterialBuilder materialBuilder = new MaterialBuilder()
-                .platform(MaterialBuilder.Platform.MOBILE)
-                .name("External Video Material")
-                .require(MaterialBuilder.VertexAttribute.UV0)
-                .shading(MaterialBuilder.Shading.UNLIT)
-                .doubleSided(true)
-                .samplerParameter(MaterialBuilder.SamplerType.SAMPLER_EXTERNAL, MaterialBuilder.SamplerFormat.FLOAT, MaterialBuilder.ParameterPrecision.DEFAULT, "videoTexture")
-                .optimization(MaterialBuilder.Optimization.NONE);
-
-        MaterialPackage plainVideoMaterialPackage = materialBuilder
-                .blending(MaterialBuilder.BlendingMode.OPAQUE)
-                .material("void material(inout MaterialInputs material) {\n" +
-                        "    prepareMaterial(material);\n" +
-                        "    material.baseColor = texture(materialParams_videoTexture, getUV0()).rgba;\n" +
-                        "}\n")
-                .build(filamentEngine);
-        if (plainVideoMaterialPackage.isValid()) {
-            ByteBuffer buffer = plainVideoMaterialPackage.getBuffer();
-            futures.add(Material.builder()
-                    .setSource(buffer)
-                    .build()
-                    .thenAccept(material -> {
-                        plainVideoMaterial = material;
-                    })
-                    .exceptionally(
-                            throwable -> {
-                                Toast.makeText(this, "Unable to load material", Toast.LENGTH_LONG).show();
-                                return null;
-                            }));
-        }
-        MaterialBuilder.shutdown();
     }
 
     public void onAugmentedImageTrackingUpdate(AugmentedImage augmentedImage) {
         // If there are both images already detected, for better CPU usage we do not need scan for them
-        if (matrixDetected && rabbitDetected) {
+        if (objectDetected) {
             return;
         }
 
@@ -205,62 +200,50 @@ public class MainActivity extends AppCompatActivity implements
 
             // Setting anchor to the center of Augmented Image
             AnchorNode anchorNode = new AnchorNode(augmentedImage.createAnchor(augmentedImage.getCenterPose()));
-
-            // If matrix video haven't been placed yet and detected image has String identifier of "matrix"
-            if (!matrixDetected && augmentedImage.getName().equals("matrix")) {
-                matrixDetected = true;
-                Toast.makeText(this, "Matrix tag detected", Toast.LENGTH_LONG).show();
-
-                // AnchorNode placed to the detected tag and set it to the real size of the tag
-                // This will cause deformation if your AR tag has different aspect ratio than your video
-                anchorNode.setWorldScale(new Vector3(augmentedImage.getExtentX(), 1f, augmentedImage.getExtentZ()));
-                arFragment.getArSceneView().getScene().addChild(anchorNode);
-
-                TransformableNode videoNode = new TransformableNode(arFragment.getTransformationSystem());
-                // For some reason it is shown upside down so this will rotate it correctly
-                videoNode.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 1f, 0), 180f));
-                anchorNode.addChild(videoNode);
-
-                // Setting texture
-                ExternalTexture externalTexture = new ExternalTexture();
-                RenderableInstance renderableInstance = videoNode.setRenderable(plainVideoModel);
-                renderableInstance.setMaterial(plainVideoMaterial);
-
-                // Setting MediaPLayer
-                renderableInstance.getMaterial().setExternalTexture("videoTexture", externalTexture);
-                mediaPlayer = MediaPlayer.create(this, R.raw.matrix);
-                mediaPlayer.setLooping(true);
-                mediaPlayer.setSurface(externalTexture.getSurface());
-                mediaPlayer.start();
-            }
             // If rabbit model haven't been placed yet and detected image has String identifier of "rabbit"
             // This is also example of model loading and placing at runtime
-            if (!rabbitDetected && augmentedImage.getName().equals("rabbit")) {
-                rabbitDetected = true;
+            if (!objectDetected && augmentedImage.getName().equals("rabbit")) {
+                objectDetected = true;
                 Toast.makeText(this, "Rabbit tag detected", Toast.LENGTH_LONG).show();
 
-                anchorNode.setWorldScale(new Vector3(0.5f, 0.5f, 0.5f));
+                anchorNode.setWorldScale(new Vector3(1.0f, 1.0f, 1.0f));
                 arFragment.getArSceneView().getScene().addChild(anchorNode);
 
-                futures.add(ModelRenderable.builder()
-                        .setSource(this, Uri.parse("models/untitled_anime.glb"))
-                        .setIsFilamentGltf(true)
-                        .build()
-                        .thenAccept(rabbitModel -> {
-                            TransformableNode modelNode = new TransformableNode(arFragment.getTransformationSystem());
-                            modelNode.setRenderable(rabbitModel);
-                            anchorNode.addChild(modelNode);
-                        })
-                        .exceptionally(
-                                throwable -> {
-                                    Toast.makeText(this, "Unable to load rabbit model", Toast.LENGTH_LONG).show();
-                                    return null;
-                                }));
+                modelNode = new TransformableNode(arFragment.getTransformationSystem());
+                modelNode.setRenderable(objectModel);
+                anchorNode.addChild(modelNode);
+                modelNode.getScaleController().setMinScale(0.1f);
+                modelNode.getScaleController().setMaxScale(2.0f);
+
+                modelAnimator = modelNode.getRenderableInstance().animate(false);
+
+                playButton.setEnabled(true);
+                stopButton.setEnabled(true);
+                playButton.setVisibility(View.VISIBLE);
+                stopButton.setVisibility(View.VISIBLE);
             }
         }
-        if (matrixDetected && rabbitDetected) {
+        if (objectDetected) {
             arFragment.getInstructionsController().setEnabled(
                     InstructionsController.TYPE_AUGMENTED_IMAGE_SCAN, false);
         }
     }
+
+        private void loadModel() {
+        // загружаем модель
+        futures.add(ModelRenderable.builder()
+                .setSource(this, Uri.parse("models/untitled_anime2.glb"))
+                .setIsFilamentGltf(true)
+                .build()
+                .thenAccept(model -> {
+                    //removing shadows for this Renderable
+                    objectModel = model;
+                })
+                .exceptionally(
+                        throwable -> {
+                            Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG).show();
+                            return null;
+                        }));
+    }
+
 }
