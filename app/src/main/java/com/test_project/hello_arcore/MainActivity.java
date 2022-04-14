@@ -27,6 +27,8 @@ import com.google.android.filament.filamat.MaterialPackage;
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
+import com.google.ar.core.Plane;
+import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
@@ -48,6 +50,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -146,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onSessionConfiguration(Session session, Config config) {
         // Disable plane detection
-        config.setPlaneFindingMode(Config.PlaneFindingMode.DISABLED);
+        config.setPlaneFindingMode(Config.PlaneFindingMode.HORIZONTAL);
 
         // Images to be detected by our AR need to be added in AugmentedImageDatabase
         // This is how database is created at runtime
@@ -158,8 +161,6 @@ public class MainActivity extends AppCompatActivity implements
         Bitmap testImage = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
 
 
-
-
         // Every image has to have its own unique String identifier
         database.addImage("rabbit", testImage);
 
@@ -167,6 +168,11 @@ public class MainActivity extends AppCompatActivity implements
 
         // Check for image detection
         arFragment.setOnAugmentedImageUpdateListener(this::onAugmentedImageTrackingUpdate);
+
+        // depth mode
+        if (session.isDepthModeSupported(Config.DepthMode.AUTOMATIC)) {
+            config.setDepthMode(Config.DepthMode.AUTOMATIC);
+        }
 
         // arcore hack. Без этого не работает автофокус...
         try {
@@ -199,10 +205,37 @@ public class MainActivity extends AppCompatActivity implements
                 && augmentedImage.getTrackingMethod() == AugmentedImage.TrackingMethod.FULL_TRACKING) {
 
             // Setting anchor to the center of Augmented Image
-            AnchorNode anchorNode = new AnchorNode(augmentedImage.createAnchor(augmentedImage.getCenterPose()));
+            AnchorNode anchorNode;
+            //AnchorNode anchorNode = new AnchorNode(augmentedImage.createAnchor(augmentedImage.getCenterPose()));
+            Pose imgPose = augmentedImage.getCenterPose();
+
             // If rabbit model haven't been placed yet and detected image has String identifier of "rabbit"
             // This is also example of model loading and placing at runtime
             if (!objectDetected && augmentedImage.getName().equals("rabbit")) {
+                Collection<Plane> planes = arFragment.getArSceneView().getUpdatedPlanes();
+                if(planes.isEmpty()){
+                    return;
+                }
+                float difDist = 100000f;
+                Plane currentPlane = null;
+
+                for(int i = 0; i < planes.size(); i++){
+                    Plane plane = planes.iterator().next();
+                    Pose planePose = plane.getCenterPose();
+                    float tempDiff = (float)Math.sqrt(Math.pow(planePose.qx() - imgPose.qx(), 2) + Math.pow(planePose.qy() - imgPose.qy(), 2) + Math.pow(planePose.qz() - imgPose.qz(), 2));
+                    if(tempDiff < difDist){
+                        currentPlane = plane;
+                        difDist = tempDiff;
+                    }
+                }
+
+                if(currentPlane == null){
+                    return;
+                }
+
+                anchorNode = new AnchorNode(currentPlane.createAnchor(augmentedImage.getCenterPose()));
+
+
                 objectDetected = true;
                 Toast.makeText(this, "Rabbit tag detected", Toast.LENGTH_LONG).show();
 
