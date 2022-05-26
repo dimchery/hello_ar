@@ -222,9 +222,7 @@ public class MainActivity extends AppCompatActivity implements
                 for(int i = 0; i < planes.size(); i++){
                     Plane plane = planes.iterator().next();
                     Pose planePose = plane.getCenterPose();
-                    float tempDiff = (float)Math.sqrt(Math.pow(planePose.qx() - imgPose.qx(), 2)
-                            + Math.pow(planePose.qy() - imgPose.qy(), 2)
-                            + Math.pow(planePose.qz() - imgPose.qz(), 2));
+                    float tempDiff = (float)Math.sqrt(Math.pow(planePose.qx() - imgPose.qx(), 2) + Math.pow(planePose.qy() - imgPose.qy(), 2) + Math.pow(planePose.qz() - imgPose.qz(), 2));
                     if(tempDiff < difDist){
                         currentPlane = plane;
                         difDist = tempDiff;
