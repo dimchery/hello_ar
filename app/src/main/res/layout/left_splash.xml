@@ -1,0 +1,174 @@
+<!--
+   Copyright 2016 Google LLC
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fon1"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/arrow_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/buttonshape"
+        android:drawableStart="@drawable/next"
+        android:gravity="right"
+
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="65dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Выбирете модель"
+        android:textSize="22sp"
+        android:textColor ="#FFFFFF"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="158dp"
+        android:layout_height="130dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="142dp"
+        android:layout_toEndOf="@+id/imageButton1"
+        android:background="@drawable/card"
+        android:onClick="@LeftSplashActivity/setOnClickListener"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/card1" />
+    <TextView
+        android:id="@+id/textCard2"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="235dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Космос"
+        android:textSize="16sp"
+        android:textColor ="#000000"
+        android:clickable="false"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="158dp"
+        android:layout_height="130dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="142dp"
+        android:background="@drawable/card"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/card2" />
+    <TextView
+        android:id="@+id/textCard1"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="235dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Химия"
+        android:textSize="16sp"
+        android:textColor ="#000000"
+        android:clickable="false"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="158dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/imageButton1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/card"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/card3" />
+    <TextView
+        android:id="@+id/textCard3"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="385dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Животные"
+        android:textSize="14sp"
+        android:textColor ="#000000"
+        android:clickable="false"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="158dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/imageButton"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/card"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/card4" />
+    <TextView
+        android:id="@+id/textCard4"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="385dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Математика"
+        android:textSize="14sp"
+        android:textColor ="#000000"
+        android:clickable="false"
+        />
+
+</RelativeLayout>
