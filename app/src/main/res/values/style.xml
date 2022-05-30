@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Splash"  parent="Theme.AppCompat.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="android:windowBackground">@drawable/background_splash</item>
-    </style>
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
