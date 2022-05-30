@@ -47,6 +47,6 @@ dependencies {
     implementation "com.gorisse.thomas.sceneform:sceneform:1.20.3"
 
     implementation "com.google.android.filament:filamat-android:1.12.1"
-
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
 
 }

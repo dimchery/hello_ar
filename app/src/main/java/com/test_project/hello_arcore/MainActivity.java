@@ -103,10 +103,15 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
+        //получение имени модели
+        /*добавить проверку на аргументы как в пимере*/
+        String nameModel = getIntent().getExtras().get("name").toString();
+
+
         if(Sceneform.isSupported(this)) {
             // .glb models can be loaded at runtime when needed or when app starts
             // This method loads ModelRenderable when app starts
-            loadModel();
+            loadModel(nameModel);
 //            loadMatrixMaterial();
         }
 
@@ -262,10 +267,13 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-        private void loadModel() {
+        private void loadModel(String nameModel) {
         // загружаем модель
+            /*мб проверки*/
+            String path = "models/" + nameModel + ".glb";
+
         futures.add(ModelRenderable.builder()
-                .setSource(this, Uri.parse("models/untitled_anime2.glb"))
+                .setSource(this, Uri.parse(path))
                 .setIsFilamentGltf(true)
                 .build()
                 .thenAccept(model -> {
