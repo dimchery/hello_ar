@@ -28,7 +28,13 @@
             <!-- "AR Required" app, requires "Google Play Services for AR" (ARCore)
              to be installed, as the app does not include any non-AR features. -->
         </activity>
+        <activity android:name=".CardsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Hello_arcore"/>
 
