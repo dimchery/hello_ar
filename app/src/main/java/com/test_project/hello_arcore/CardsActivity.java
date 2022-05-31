@@ -21,18 +21,10 @@ public class CardsActivity extends AppCompatActivity {
     private ImageButton matButton;
     private ImageButton skeletonButton;
     private ImageButton slonButton;
-    private boolean flag = true;
-    private Intent arcoreClass;
-    //int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
-    //View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //перекрытие разметки (панель накладывается на разметку)
-        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-        //setContentView(R.layout.activity_main);
 
         //сокрытие строки состояния и маскировка навигации
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -42,6 +34,7 @@ public class CardsActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         setContentView(R.layout.activity_cards);
+
         solarButton = (ImageButton)findViewById(R.id.solarButton);
         solarTextCard = (TextView)findViewById(R.id.solarTextCard);
         himiyaButton = (ImageButton)findViewById(R.id.himiyaButton);
@@ -51,17 +44,12 @@ public class CardsActivity extends AppCompatActivity {
         slonButton = (ImageButton)findViewById(R.id.slonButton);
         arrow_button = (Button)findViewById(R.id.arrow_button);
 
-        //сокрытие строки состояния и навигации
-        /*decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(uiOptions);*/
-
-
         solarButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "solar.glb");
+                intent.putExtra("name", "untitled_anime");
                 startActivity(intent);
             }
         });
@@ -70,7 +58,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "chemistry.glb");
+                intent.putExtra("name", "chemistry");
                 startActivity(intent);
             }
         });
@@ -79,7 +67,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "fish.glb");
+                intent.putExtra("name", "fish");
                 startActivity(intent);
             }
         });
@@ -88,7 +76,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "math.glb");
+                intent.putExtra("name", "Video");
                 startActivity(intent);
             }
         });
@@ -97,7 +85,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "skeleton.glb");
+                intent.putExtra("name", "skeleton");
                 startActivity(intent);
             }
         });
@@ -106,7 +94,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "slon.glb");
+                intent.putExtra("name", "slon");
                 startActivity(intent);
             }
         });
@@ -114,7 +102,9 @@ public class CardsActivity extends AppCompatActivity {
     }
 
     public void startNewActivity(View v) {
-        super.onBackPressed();
+        Intent intent = new Intent(CardsActivity.this,MainActivity.class);
+        intent.putExtra("name", "Rabbit");
+        startActivity(intent);
     }
 
 

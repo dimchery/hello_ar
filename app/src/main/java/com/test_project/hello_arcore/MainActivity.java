@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements
         /*добавить проверку на аргументы как в пимере*/
         String nameModel = getIntent().getExtras().get("name").toString();
 
-
         if(Sceneform.isSupported(this)) {
             // .glb models can be loaded at runtime when needed or when app starts
             // This method loads ModelRenderable when app starts
