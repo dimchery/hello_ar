@@ -1,6 +1,7 @@
 package com.test_project.hello_arcore;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -81,12 +82,15 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
+        Intent intent = new Intent(this,CardsActivity.class);
+        startActivity(intent);
+        this.finish();
+    /*    if (back_pressed + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
         } else {
             Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
         }
-        back_pressed = System.currentTimeMillis();
+        back_pressed = System.currentTimeMillis();*/
     }
 
     @Override
@@ -131,11 +135,11 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.play_button:
                 modelAnimator.start();
                 modelAnimator.setRepeatCount(0);
-                Toast.makeText(this, "modelAnimator.start();", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Запуск анимации", Toast.LENGTH_LONG).show();
                 break;
             case R.id.stop_button:
                 modelAnimator.cancel();
-                Toast.makeText(this, "modelAnimator.cancel();", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Остановка анимации", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
