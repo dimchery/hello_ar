@@ -163,10 +163,10 @@ public class CardsActivity extends AppCompatActivity {
 
                                         //проверка условия
                                         if (xDiff > 0){
-                                            //Когда смахивание в право
+                                            //Когда смахивание вправо
 
                                         }else {
-                                            //Когда смахивание в лево
+                                            //Когда смахивание влево
                                             Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                                             intent.putExtra("name", "Rabbit");
                                             startActivity(intent);
