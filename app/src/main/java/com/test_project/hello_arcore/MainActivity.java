@@ -105,14 +105,17 @@ public class MainActivity extends AppCompatActivity implements
 
         //получение имени модели
         /*добавить проверку на аргументы как в пимере*/
-        String nameModel = getIntent().getExtras().get("name").toString();
+        Bundle arguments = getIntent().getExtras();
 
+        if(arguments != null) {
+            String nameModel = arguments.getString("name");
 
-        if(Sceneform.isSupported(this)) {
-            // .glb models can be loaded at runtime when needed or when app starts
-            // This method loads ModelRenderable when app starts
-            loadModel(nameModel);
+            if (Sceneform.isSupported(this)) {
+                // .glb models can be loaded at runtime when needed or when app starts
+                // This method loads ModelRenderable when app starts
+                loadModel(nameModel);
 //            loadMatrixMaterial();
+            }
         }
 
         playButton = (Button)findViewById(R.id.play_button);
