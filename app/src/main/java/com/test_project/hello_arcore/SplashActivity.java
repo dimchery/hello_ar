@@ -34,6 +34,8 @@ public class SplashActivity extends Activity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        this.finishAffinity();
+        System.gc();
+        System.exit(0);
     }
 }

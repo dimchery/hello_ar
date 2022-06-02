@@ -1,37 +1,25 @@
-<!--
-   Copyright 2016 Google LLC
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".CardsActivity"
     android:background="@drawable/fon1"
-    tools:context=".CardsActivity">
+    android:id="@+id/cards_layout"
+    >
+
     <!--Кнопка стрелка-->
     <Button
         android:id="@+id/arrow_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="57dp"
         android:background="@drawable/buttonshape"
-        android:drawableRight="@drawable/next_left"
+        android:drawableLeft="@drawable/next_left"
         android:gravity="center|right"
-        android:onClick="startNewActivity"
+        android:onClick="startMainActivity"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,210 +41,212 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Первая карточка-->
-    <ImageButton
-        android:id="@+id/solarButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="45dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintStart_toEndOf="@+id/himiyaButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/kosmos" />
-
-    <TextView
-        android:id="@+id/solarTextCard"
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Солнечная система"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/solarButton"
-        app:layout_constraintTop_toTopOf="@+id/solarButton" />
-
-    <!--Вторая карточка-->
-    <ImageButton
-        android:id="@+id/himiyaButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
         android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="45dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
+        android:layout_marginTop="150dp"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:useDefaultMargins="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/himiya" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/himiyaTextCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Химия"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/himiyaButton"
-        app:layout_constraintTop_toTopOf="@+id/himiyaButton" />
+        <!--Первая карточка-->
+        <FrameLayout>
 
-    <!--Третья карточка-->
-    <ImageButton
-        android:id="@+id/fishButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/himiyaButton"
-        app:srcCompat="@drawable/fish" />
+            <ImageButton
+                android:id="@+id/solarButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/kosmos" />
 
-    <TextView
-        android:id="@+id/fishTextCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Рыбы"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/fishButton"
-        app:layout_constraintTop_toTopOf="@+id/fishButton" />
+            <TextView
+                android:id="@+id/solarTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Солнечная система"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/solarButton"
+                app:layout_constraintTop_toTopOf="@+id/solarButton" />
+        </FrameLayout>
+        <!--Вторая карточка-->
+        <FrameLayout>
 
-    <!--Четверта карточка-->
-    <ImageButton
-        android:id="@+id/matButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintStart_toEndOf="@+id/fishButton"
-        app:layout_constraintTop_toBottomOf="@+id/solarButton"
-        app:srcCompat="@drawable/mat" />
+            <ImageButton
+                android:id="@+id/himiyaButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/himiya" />
 
-    <TextView
-        android:id="@+id/matTextCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Математика"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/matButton"
-        app:layout_constraintTop_toTopOf="@+id/matButton" />
-    <!--Пятая карточка-->
-    <ImageButton
-        android:id="@+id/skeletonButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintStart_toEndOf="@+id/slonButton"
-        app:layout_constraintTop_toBottomOf="@+id/matButton"
-        app:srcCompat="@drawable/maxresdefault" />
+            <TextView
+                android:id="@+id/himiyaTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Химия"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/himiyaButton"
+                app:layout_constraintTop_toTopOf="@+id/himiyaButton" />
 
-    <TextView
-        android:id="@+id/skeletonTextCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Скелет человека"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/skeletonButton"
-        app:layout_constraintTop_toTopOf="@+id/skeletonButton" />
-    <!--Шестая карточка-->
-    <ImageButton
-        android:id="@+id/slonButton"
-        android:layout_width="158dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/card"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fishButton"
-        app:srcCompat="@drawable/slon" />
+        </FrameLayout>
+        <!--Третья карточка-->
+        <FrameLayout>
 
-    <TextView
-        android:id="@+id/slonTextCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95dp"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="Слон и бабочки"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/slonButton"
-        app:layout_constraintTop_toTopOf="@+id/slonButton" />
-</RelativeLayout>
+            <ImageButton
+                android:id="@+id/fishButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/himiyaButton"
+                app:srcCompat="@drawable/fish" />
+
+            <TextView
+                android:id="@+id/fishTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Рыбы"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fishButton"
+                app:layout_constraintTop_toTopOf="@+id/fishButton" />
+
+        </FrameLayout>
+        <!--Четверта карточка-->
+        <FrameLayout>
+
+            <ImageButton
+                android:id="@+id/matButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/mat" />
+
+            <TextView
+                android:id="@+id/matTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Математика"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/matButton"
+                app:layout_constraintTop_toTopOf="@+id/matButton" />
+        </FrameLayout>
+        <!--Пятая карточка-->
+        <FrameLayout>
+
+            <ImageButton
+                android:id="@+id/skeletonButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:layout_constraintStart_toEndOf="@+id/slonButton"
+                app:layout_constraintTop_toBottomOf="@+id/matButton"
+                app:srcCompat="@drawable/maxresdefault" />
+
+            <TextView
+                android:id="@+id/skeletonTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Скелет человека"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/skeletonButton"
+                app:layout_constraintTop_toTopOf="@+id/skeletonButton" />
+        </FrameLayout>
+        <!--Шестая карточка-->
+        <FrameLayout>
+
+            <ImageButton
+                android:id="@+id/slonButton"
+                android:layout_width="158dp"
+                android:layout_height="120dp"
+                android:background="@drawable/card"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/slon" />
+
+            <TextView
+                android:id="@+id/slonTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="95dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="Слон и бабочки"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/slonButton"
+                app:layout_constraintTop_toTopOf="@+id/slonButton" />
+        </FrameLayout>
+        >
+
+    </GridLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
