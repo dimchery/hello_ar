@@ -49,7 +49,7 @@ public class CardsActivity extends AppCompatActivity {
         skeletonButton = (ImageButton)findViewById(R.id.skeletonButton);
         slonButton = (ImageButton)findViewById(R.id.slonButton);
 
-        constraintLayout = findViewById(R.id.main_layout);
+        constraintLayout = findViewById(R.id.cards_layout);
         swipeListener = new SwipeListener(constraintLayout);
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
@@ -62,6 +62,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "untitled_anime");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
         himiyaButton.setOnClickListener(new View.OnClickListener()
@@ -72,6 +73,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "chemistry");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
         fishButton.setOnClickListener(new View.OnClickListener()
@@ -82,6 +84,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "fish");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
         matButton.setOnClickListener(new View.OnClickListener()
@@ -92,6 +95,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "Video");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
         skeletonButton.setOnClickListener(new View.OnClickListener()
@@ -102,6 +106,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "skeleton");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
         slonButton.setOnClickListener(new View.OnClickListener()
@@ -112,6 +117,7 @@ public class CardsActivity extends AppCompatActivity {
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
                 intent.putExtra("name", "slon");
                 startActivity(intent);
+                CardsActivity.this.finish();
             }
         });
 
@@ -121,6 +127,8 @@ public class CardsActivity extends AppCompatActivity {
         Intent intent = new Intent(CardsActivity.this,MainActivity.class);
         intent.putExtra("name", "Rabbit");
         startActivity(intent);
+
+        CardsActivity.this.finish();
     }
 
     @Override
@@ -131,7 +139,7 @@ public class CardsActivity extends AppCompatActivity {
     }
 
     //обработчик движения
-    private class SwipeListener  implements View.OnTouchListener {
+    private class SwipeListener implements View.OnTouchListener {
 
         GestureDetector gestureDetector;
         //конструктор

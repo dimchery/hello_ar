@@ -14,10 +14,11 @@
         android:id="@+id/arrow_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="57dp"
         android:background="@drawable/buttonshape"
-        android:drawableLeft="@drawable/next_left"
+        android:drawableRight="@drawable/next_left"
         android:gravity="center|right"
         android:onClick="startMainActivity"
         app:backgroundTint="@color/white"
@@ -44,11 +45,11 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="150dp"
         android:columnCount="2"
         android:rowCount="3"
         android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

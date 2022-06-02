@@ -294,4 +294,9 @@ public class MainActivity extends AppCompatActivity implements
                         }));
     }
 
+    public void startCardsActivity(View v) {
+        Intent intent = new Intent(MainActivity.this,CardsActivity.class);
+        startActivity(intent);
+        MainActivity.this.finish();
+    }
 }

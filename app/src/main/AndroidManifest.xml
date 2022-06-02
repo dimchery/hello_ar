@@ -16,10 +16,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Hello_arcore">
         <activity android:name=".SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +28,7 @@
             <!-- "AR Required" app, requires "Google Play Services for AR" (ARCore)
              to be installed, as the app does not include any non-AR features. -->
         </activity>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".CardsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,10 +36,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Hello_arcore"/>
-        <activity android:name=".CardsActivity"
-            android:theme="@style/AppTheme"/>
 
         <meta-data android:name="com.google.ar.core" android:value="required" />
     </application>
