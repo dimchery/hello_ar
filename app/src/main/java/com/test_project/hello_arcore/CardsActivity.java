@@ -24,6 +24,7 @@ public class CardsActivity extends AppCompatActivity {
     private ImageButton matButton;
     private ImageButton skeletonButton;
     private ImageButton slonButton;
+    private ImageButton arrowButton;
 
     private ConstraintLayout constraintLayout;
     SwipeListener swipeListener;
@@ -48,6 +49,7 @@ public class CardsActivity extends AppCompatActivity {
         matButton = (ImageButton)findViewById(R.id.matButton);
         skeletonButton = (ImageButton)findViewById(R.id.skeletonButton);
         slonButton = (ImageButton)findViewById(R.id.slonButton);
+        arrowButton = (ImageButton)findViewById(R.id.arrow_button);
 
         constraintLayout = findViewById(R.id.cards_layout);
         swipeListener = new SwipeListener(constraintLayout);
@@ -121,15 +123,28 @@ public class CardsActivity extends AppCompatActivity {
             }
         });
 
+        arrowButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                v.startAnimation(animAlpha);
+                Intent intent = new Intent(CardsActivity.this,MainActivity.class);
+                intent.putExtra("name", "Rabbit");
+                startActivity(intent);
+
+                CardsActivity.this.finish();
+            }
+        });
+
     }
 
-    public void startMainActivity(View v) {
+    /*public void startMainActivity(View v) {
         Intent intent = new Intent(CardsActivity.this,MainActivity.class);
         intent.putExtra("name", "Rabbit");
         startActivity(intent);
 
         CardsActivity.this.finish();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

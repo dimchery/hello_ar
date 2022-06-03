@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
                 objectDetected = true;
-                Toast.makeText(this, "Rabbit tag detected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Маркер найден", Toast.LENGTH_LONG).show();
 
                 anchorNode.setWorldScale(new Vector3(1.0f, 1.0f, 1.0f));
                 arFragment.getArSceneView().getScene().addChild(anchorNode);
@@ -276,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements
 
         private void loadModel(String nameModel) {
         // загружаем модель
-            /*мб проверки*/
             String path = "models/" + nameModel + ".glb";
 
         futures.add(ModelRenderable.builder()
@@ -289,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements
                 })
                 .exceptionally(
                         throwable -> {
-                            Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "Не удалось загрузить модель", Toast.LENGTH_LONG).show();
                             return null;
                         }));
     }
