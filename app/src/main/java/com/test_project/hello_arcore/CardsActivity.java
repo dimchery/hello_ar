@@ -73,7 +73,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "chemistry");
+                intent.putExtra("name", "химия");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
@@ -84,7 +84,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "fish");
+                intent.putExtra("name", "рыбы");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
@@ -95,7 +95,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "Video");
+                intent.putExtra("name", "сфера");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
@@ -106,7 +106,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "skeleton");
+                intent.putExtra("name", "человек");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
@@ -117,7 +117,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "slon");
+                intent.putExtra("name", "слон");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
