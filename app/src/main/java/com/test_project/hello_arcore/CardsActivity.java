@@ -62,7 +62,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "untitled_anime");
+                intent.putExtra("name", "планеты_1");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
@@ -106,7 +106,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "человек");
+                intent.putExtra("name", "human");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
