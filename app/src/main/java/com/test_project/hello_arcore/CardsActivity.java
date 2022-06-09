@@ -95,7 +95,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "матан2");
+                intent.putExtra("name", "matan2");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
