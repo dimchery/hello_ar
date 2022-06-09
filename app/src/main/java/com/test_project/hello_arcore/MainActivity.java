@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         //получение имени модели
-        /*добавить проверку на аргументы как в пимере*/
         Bundle arguments = getIntent().getExtras();
 
         if(arguments != null) {
