@@ -62,7 +62,7 @@ public class CardsActivity extends AppCompatActivity {
             {
                 v.startAnimation(animAlpha);
                 Intent intent = new Intent(CardsActivity.this,MainActivity.class);
-                intent.putExtra("name", "планеты_1");
+                intent.putExtra("name", "система_3");
                 startActivity(intent);
                 CardsActivity.this.finish();
             }
